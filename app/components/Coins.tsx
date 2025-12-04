@@ -10,8 +10,6 @@ const Coins = () => {
 
   const getAllCoin = async () => {
     const data = await getExchanges();
-    // console.log(data)
-    // console.log(JSON.stringify(data?.data, null, 2));
     setData(data?.data);
   };
   useEffect(() => {
