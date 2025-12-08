@@ -3,7 +3,7 @@ import "./global.css";
 
 export default function RootLayout() {
   return (
-    <Stack className="flex-1 bg-yellow-400">
+    <Stack className=" bg-yellow-400">
       <Stack.Screen
         name="(tabs)"
         options={{
@@ -11,7 +11,7 @@ export default function RootLayout() {
         }}
       />
       <Stack.Screen
-        name="movies/[id]"
+        name="Details/[id]"
         options={{
           headerShown: false,
         }}

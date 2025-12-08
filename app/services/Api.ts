@@ -12,6 +12,7 @@ const api = axios.create({
 
 // Example API Calls
 export const getExchanges = () => api.get("/exchanges");
-export const getCoins = (Curr,Num) => api.get(`/coins/markets?vs_currency=${Curr}&page=${Num}`);
+export const getCoins = (Curr: string, Num: number) => api.get(`/coins/markets?vs_currency=${Curr}&page=${Num}`);
+ export const GetCoinDetails=(Coin:string)=>api.get(`/coins/${Coin}`);
 
 export default api;

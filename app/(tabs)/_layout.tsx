@@ -21,11 +21,11 @@ const _layout = () => {
           marginBottom: 12,
           margin: 5,
           borderRadius: 25,
-      position: "absolute",
-      left: 15,
-      right: 15,
-      elevation: 0,
-      borderTopWidth: 0,
+          position: "absolute",
+          left: 15,
+          right: 15,
+          elevation: 0,
+          borderTopWidth: 0,
         },
       }}
     >
@@ -38,22 +38,6 @@ const _layout = () => {
           tabBarIcon: ({ focused }) => (
             <View style={[focused && styles.customContainer]}>
               <AntDesign name="home" size={focused ? 35 : 30} />
-            </View>
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="search"
-        options={{
-          title: "Search",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <View style={[focused && styles.customContainer]}>
-              <EvilIcons
-                name={focused ? "search" : "search"}
-                size={focused ? 35 : 30}
-              />
             </View>
           ),
         }}

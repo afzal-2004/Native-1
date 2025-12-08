@@ -2,17 +2,19 @@
 import { StyleSheet, Text, View, FlatList, Image } from "react-native";
 import React, { useActionState } from "react";
 import { useEffect, useState } from "react";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { getCoins } from "../services/Api";
+import { Link } from "expo-router";
 
 const saved = () => {
   const [fetchingAll, setfetchingAll] = useState([]);
   const [Curr, setCurr] = useState("inr");
+
   const [Num, setNum] = useState(1);
   const fethAllCoins = async () => {
     try {
       const GetAllCoinsByPage = await getCoins(Curr, Num);
       setfetchingAll(GetAllCoinsByPage?.data);
-      console.log(GetAllCoinsByPage?.data);
     } catch (error) {
       console.log(error);
     }
@@ -27,7 +29,49 @@ const saved = () => {
       <Text className="text-[20px] i text-red-500 font-semibold mt-[5vh]">
         All Coins
       </Text>
-      <View className="mt-[5vh]">
+      <View style={{ flexDirection: "row", gap: 5, margin: 10 }}>
+        <View style={{ flexDirection: "row" }}>
+          <BouncyCheckbox
+            isChecked={Curr == "inr"}
+            fillColor="green"
+            size={30}
+            useBuiltInState={false}
+            iconStyle={{ borderColor: "green" }}
+            onPress={(checked: boolean) => {
+              setCurr("inr");
+            }}
+          />
+          <Text style={{ fontSize: 18, fontWeight: "semibold" }}>INR</Text>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <BouncyCheckbox
+            isChecked={Curr == "usd"}
+            fillColor="green"
+            size={30}
+            useBuiltInState={false}
+            iconStyle={{ borderColor: "green" }}
+            onPress={(checked: boolean) => {
+              setCurr("usd");
+            }}
+          />
+          <Text style={{ fontSize: 18, fontWeight: "semibold" }}>USD</Text>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <BouncyCheckbox
+            isChecked={Curr == "eur"}
+            fillColor="green"
+            size={30}
+            useBuiltInState={false}
+            iconStyle={{ borderColor: "green" }}
+            onPress={(checked: boolean) => {
+              setCurr("eur");
+            }}
+          />
+          <Text style={{ fontSize: 18, fontWeight: "semibold" }}>ERO</Text>
+        </View>
+      </View>
+
+      <View className="mt-[5vh] mb-[2vh]">
         <FlatList
           data={fetchingAll}
           numColumns={2}
@@ -54,7 +98,18 @@ const saved = () => {
 
                 <Text className="font-semibold">{item?.name}</Text>
 
-                {Curr == "inr" ? <Text>{`₹${item?.current_price}`}</Text> : ""}
+                {Curr == "inr" ? (
+                  <Text>{`₹${item?.current_price}`}</Text>
+                ) : Curr == "usd" ? (
+                  <Text>{`$${item?.current_price}`}</Text>
+                ) : (
+                  <Text>{`€${item?.current_price}`}</Text>
+                )}
+                <Link href={`/Details/${item?.id}`}>
+                  <Text style={{ fontSize: 12, color: "blue" }}>
+                    view Details ....
+                  </Text>
+                </Link>
               </View>
             </View>
           )}
@@ -67,30 +122,3 @@ const saved = () => {
 export default saved;
 
 const styles = StyleSheet.create({});
-
-// ath: 11187013;
-// ath_change_percentage: -25.20983;
-// ath_date: "2025-10-06T18:57:42.558Z";
-// atl: 3993.42;
-// atl_change_percentage: 209414.33545;
-// atl_date: "2013-07-05T00:00:00.000Z";
-// circulating_supply: 19957175;
-// current_price: 8384276;
-// fully_diluted_valuation: 167353101084849;
-// high_24h: 8480198;
-// id: "bitcoin";
-// image: "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400";
-// last_updated: "2025-12-03T18:00:12.111Z";
-// low_24h: 8167044;
-// market_cap: 167353101084849;
-// market_cap_change_24h: 3120297748219;
-// market_cap_change_percentage_24h: 1.89992;
-// market_cap_rank: 1;
-// max_supply: 21000000;
-// name: "Bitcoin";
-// price_change_24h: 155712;
-// price_change_percentage_24h: 1.89233;
-// roi: null;
-// symbol: "btc";
-// total_supply: 19957175;
-// total_volume: 7576495869633;
