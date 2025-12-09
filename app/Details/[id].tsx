@@ -22,37 +22,39 @@ const Details = () => {
     };
     market_data?: {
       current_price?: {
-        inr?: string;
-        usd?: string;
-        eur?: string;
+        inr?: number;
+        usd?: number;
+        eur?: number;
       };
       ath?: {
-        inr?: string;
-        usd?: string;
-        eur?: string;
+        inr?: number;
+        usd?: number;
+        eur?: number;
       };
       ath_change_percentage?: {
-        inr?: string;
-        usd?: string;
-        eur?: string;
+        inr?: number;
+        usd?: number;
+        eur?: number;
       };
       ath_date?: {
         inr?: string;
-        usd?: string;
-        eur?: string;
       };
       atl?: {
-        inr?: string;
+        inr?: number;
+        usd?: number;
+        eur?: number;
       };
       atl_change_percentage?: {
-        inr?: string;
+        inr?: number;
+        usd?: number;
+        eur?: number;
       };
       atl_date?: {
         inr?: string;
       };
     };
   }
-  const [CurrentCoin, setCurrentCoin] = useState("inr");
+  const [Curr, setCurr] = useState("inr");
 
   const [Details, setDetails] = useState<CoinDetails | null>(null);
 
@@ -75,51 +77,60 @@ const Details = () => {
     });
   };
 
-  // Example usage
-
+  // Example
   return (
-    <View className="bg-yellow-300 w-full h-[100vh] p-5">
-      <View className=" flex-row  w-full  justify-between items-center">
+    <View className="bg-yellow-300 w-full h-[100vh] p-5 text-center">
+      <View
+        style={{
+          flexDirection: "row",
+          gap: 5,
+          margin: 10,
+          marginTop: 50,
+          justifyContent: "center",
+        }}
+      >
         <View style={{ flexDirection: "row" }}>
           <BouncyCheckbox
-            isChecked={CurrentCoin == "inr"}
+            isChecked={Curr == "inr"}
             fillColor="green"
             size={30}
             useBuiltInState={false}
             iconStyle={{ borderColor: "green" }}
             onPress={(checked: boolean) => {
-              setCurrentCoin("inr");
+              setCurr("inr");
             }}
           />
           <Text style={{ fontSize: 18, fontWeight: "semibold" }}>INR</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <BouncyCheckbox
-            isChecked={CurrentCoin == "usd"}
+            isChecked={Curr == "usd"}
             fillColor="green"
             size={30}
             useBuiltInState={false}
+            iconStyle={{ borderColor: "green" }}
             onPress={(checked: boolean) => {
-              setCurrentCoin("usd");
+              setCurr("usd");
             }}
           />
           <Text style={{ fontSize: 18, fontWeight: "semibold" }}>USD</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <BouncyCheckbox
-            isChecked={CurrentCoin == "eur"}
+            isChecked={Curr == "eur"}
             fillColor="green"
             size={30}
             useBuiltInState={false}
+            iconStyle={{ borderColor: "green" }}
             onPress={(checked: boolean) => {
-              setCurrentCoin("eur");
+              setCurr("eur");
             }}
           />
           <Text style={{ fontSize: 18, fontWeight: "semibold" }}>ERO</Text>
         </View>
       </View>
-      <Text className="font-semibold text-[18px] text-red-500 justify-center flex items-center mt-[3vh]">
-        Market Rank #{Details?.market_cap_rank}
+      <Text className="font-semibold text-[20px] text-red-500  text-center mt-[3vh]">
+        Market Rank #{Details?.market_cap_rank ?? "N/A"}
       </Text>{" "}
       <Text className="font-semibold text-[18px] text-red-500 justify-center flex items-center mt-[3vh]">
         Latest Update On :
@@ -131,13 +142,14 @@ const Details = () => {
           className="w-[200px] h-[200px] "
           resizeMode="cover"
         />
-        <Text className="font-bold text-[18px] text-green-500 justify-center flex items-center mt-[3vh]">
+        <Text className="font-bold text-[20px] text-green-500 justify-center flex items-center mt-[3vh]">
           {Details?.name}
         </Text>{" "}
         <Text className="font-bold text-[18px] text-green-500 justify-center flex items-center mt-[3vh]">
-          {CurrentCoin == "inr"
+          Current Price = 
+          {Curr == "inr"
             ? `₹${Details?.market_data?.current_price?.inr}`
-            : CurrentCoin == "usd"
+            : Curr == "usd"
             ? `$${Details?.market_data?.current_price?.usd}`
             : `€${Details?.market_data?.current_price?.eur}`}
         </Text>{" "}
@@ -148,7 +160,17 @@ const Details = () => {
               color="green"
               size={24}
             />
-            {Details?.market_data?.atl_change_percentage?.inr?.toFixed(3)} %
+            {Curr == "inr"
+              ? `${Details?.market_data?.atl_change_percentage?.inr?.toFixed(
+                  3
+                )}%`
+              : Curr == "usd"
+              ? `${Details?.market_data?.atl_change_percentage?.usd?.toFixed(
+                  3
+                )}%`
+              : `${Details?.market_data?.atl_change_percentage?.eur?.toFixed(
+                  3
+                )}%`}
           </Text>
           <Text className="text-green-500 flex flex-row items-center gap-2">
             {" "}
@@ -157,13 +179,27 @@ const Details = () => {
               color="#cf1515"
               size={24}
             />
-            {Details?.market_data?.ath_change_percentage?.inr?.toFixed(3)}%
+            {Curr == "inr"
+              ? `${Details?.market_data?.ath_change_percentage?.inr?.toFixed(
+                  3
+                )}%`
+              : Curr == "usd"
+              ? `${Details?.market_data?.ath_change_percentage?.usd?.toFixed(
+                  3
+                )}%`
+              : `${Details?.market_data?.ath_change_percentage?.eur?.toFixed(
+                  3
+                )}%`}
           </Text>
         </View>
         <View className="font-bold  flex-row text-[18px] text-green-500 justify-between flex items-center mt-[3vh] w-full   ">
           <Text className="text-green-500">Heigest Price </Text>
           <Text className="text-green-500">
-            ₹ {Details?.market_data?.ath?.inr}
+            {Curr == "inr"
+              ? `₹${Details?.market_data?.ath?.inr}`
+              : Curr == "usd"
+              ? `$${Details?.market_data?.ath?.usd}`
+              : `€${Details?.market_data?.ath?.eur}`}
           </Text>
         </View>
         <View className="font-bold  flex-row text-[18px] text-green-500 justify-between flex items-center mt-[3vh] w-full  ">
@@ -178,7 +214,12 @@ const Details = () => {
         <View className="font-bold  flex-row text-[18px] text-green-500 justify-between flex items-center mt-[3vh] w-full   ">
           <Text className="text-red-500">Lowest Price </Text>
           <Text className="text-red-500">
-            ₹ {Details?.market_data?.atl?.inr}
+            {Curr == "inr"
+              ? `₹${Details?.market_data?.atl?.inr}`
+              : Curr == "usd"
+              ? `$${Details?.market_data?.atl?.usd}`
+              : `€${Details?.market_data?.atl?.eur}`}
+            {/* ₹ {Details?.market_data?.atl?.inr} */}
           </Text>
         </View>
         <View className="font-bold  flex-row text-[18px] text-green-500 justify-between flex items-center mt-[3vh] w-full  ">
