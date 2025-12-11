@@ -6,7 +6,15 @@ import { FlatList, Image } from "react-native";
 import { Redirect } from "expo-router";
 
 const Coins = () => {
-  const [Data, setData] = useState([]);
+  interface Coin {
+    id: string;
+    name: string;
+    trust_score_rank: number;
+    image: string;
+    url: string;
+  }
+  
+  const [Data, setData] = useState<Coin[]>([]);
 
   const getAllCoin = async () => {
     const data = await getExchanges();
@@ -16,7 +24,7 @@ const Coins = () => {
     getAllCoin();
   }, []);
 
-  const RedirectToWeb = (link) => {
+  const RedirectToWeb = (link: string) => {
     Linking.openURL(`${link}`);
   };
 
@@ -30,7 +38,7 @@ const Coins = () => {
         columnWrapperStyle={{ gap: 10 }}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         data={Data}
-        keyExtractor={(item) => item?.id}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View className="flex-1 border border-slate-500 rounded-lg  bg-white w-[150px] h-[200px] justify-center items-center ">
             <Image

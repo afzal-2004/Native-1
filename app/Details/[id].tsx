@@ -131,11 +131,11 @@ const Details = () => {
       </View>
       <Text className="font-semibold text-[20px] text-red-500  text-center mt-[3vh]">
         Market Rank #{Details?.market_cap_rank ?? "N/A"}
-      </Text>{" "}
+      </Text>
       <Text className="font-semibold text-[18px] text-red-500 justify-center flex items-center mt-[3vh]">
         Latest Update On :
         {Details?.last_updated ? formattedDate(Details.last_updated) : "N/A"}
-      </Text>{" "}
+      </Text>
       <View className="mt-[5vh] flex-1 justify-center items-center">
         <Image
           source={{ uri: Details?.image?.large }}
@@ -144,7 +144,7 @@ const Details = () => {
         />
         <Text className="font-bold text-[20px] text-green-500 justify-center flex items-center mt-[3vh]">
           {Details?.name}
-        </Text>{" "}
+        </Text>
         <Text className="font-bold text-[18px] text-green-500 justify-center flex items-center mt-[3vh]">
           Current Price = 
           {Curr == "inr"
@@ -152,7 +152,7 @@ const Details = () => {
             : Curr == "usd"
             ? `$${Details?.market_data?.current_price?.usd}`
             : `€${Details?.market_data?.current_price?.eur}`}
-        </Text>{" "}
+        </Text>
         <View className="flex-row  justify-between items-center  w-full">
           <Text className="text-green-500 flex flex-row items-center gap-2">
             <MaterialCommunityIcons
@@ -173,7 +173,7 @@ const Details = () => {
                 )}%`}
           </Text>
           <Text className="text-green-500 flex flex-row items-center gap-2">
-            {" "}
+           
             <MaterialCommunityIcons
               name="arrow-down-drop-circle"
               color="#cf1515"
@@ -205,7 +205,7 @@ const Details = () => {
         <View className="font-bold  flex-row text-[18px] text-green-500 justify-between flex items-center mt-[3vh] w-full  ">
           <Text className="text-green-500">Last Height price Date </Text>
           <Text className="text-green-500">
-            {" "}
+           
             {Details?.market_data?.ath_date?.inr
               ? formattedDate(Details?.market_data?.ath_date?.inr)
               : "NA"}
@@ -225,7 +225,7 @@ const Details = () => {
         <View className="font-bold  flex-row text-[18px] text-green-500 justify-between flex items-center mt-[3vh] w-full  ">
           <Text className="text-red-500">Last Lowest price Date </Text>
           <Text className="text-red-500">
-            {" "}
+           
             {Details?.market_data?.atl_date?.inr
               ? formattedDate(Details?.market_data?.atl_date?.inr)
               : "NA"}

@@ -7,7 +7,16 @@ import { getCoins } from "../services/Api";
 import { Link } from "expo-router";
 
 const saved = () => {
-  const [fetchingAll, setfetchingAll] = useState([]);
+  interface Coin {
+    id: string;
+    image: string;
+    market_cap_rank: number;
+    symbol: string;
+    name: string;
+    current_price: number;
+  }
+
+  const [fetchingAll, setfetchingAll] = useState<Coin[]>([]);
   const [Curr, setCurr] = useState("inr");
 
   const [Num, setNum] = useState(1);
